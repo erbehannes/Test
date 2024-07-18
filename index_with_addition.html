@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Losnummernprüfung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #444;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        let losnummernSet = new Set([
+            "1717", "3145", "3204", "3210", "3631", "3666", "3669",
+            "3686", "3709", "4192", "4953", "4982", "4937", "4963",
+            "5071", "5307", "5306", "5305", "5342", "5385"
+        ]);
+
+        function checkLosnummer() {
+            const losnummerInput = document.getElementById('losnummer').value.trim();
+            const resultElement = document.getElementById('result');
+            if (losnummernSet.has(losnummerInput)) {
+                resultElement.innerText = `Die Losnummer ${losnummerInput} ist in der Datenbank vorhanden.`;
+                resultElement.style.color = "green";
+            } else {
+                resultElement.innerText = `Die Losnummer ${losnummerInput} ist nicht in der Datenbank vorhanden.`;
+                resultElement.style.color = "red";
+            }
+        }
+
+        function addLosnummer() {
+            const newLosnummerInput = document.getElementById('newLosnummer').value.trim();
+            const resultElement = document.getElementById('result');
+            if (newLosnummerInput && !isNaN(newLosnummerInput)) {
+                losnummernSet.add(newLosnummerInput);
+                resultElement.innerText = `Die Losnummer ${newLosnummerInput} wurde erfolgreich hinzugefügt.`;
+                resultElement.style.color = "blue";
+            } else {
+                resultElement.innerText = `Ungültige Losnummer. Bitte eine gültige Nummer eingeben.`;
+                resultElement.style.color = "red";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Losnummernprüfung</h1>
+        <h2>Gezogene Losnummer prüfen</h2>
+        <input type="text" id="losnummer" placeholder="Losnummer eingeben">
+        <button onclick="checkLosnummer()">Prüfen</button>
+        <h2>Neue Losnummer hinzufügen</h2>
+        <input type="text" id="newLosnummer" placeholder="Neue Losnummer eingeben">
+        <button onclick="addLosnummer()">Hinzufügen</button>
+        <p id="result"></p>
+    </div>
+</body>
+</html>
